@@ -1,7 +1,7 @@
 deploy2wp
 =========
 
-Deploy your plugin or theme to wordpress.
+Automatically deploy your plugin or theme to WordPress.
 
 Github is so popular. Now, use this tool, you can write plugins or themes of wordpress on github, and automatically deployed to wordpress.
 
@@ -31,7 +31,6 @@ script: chmod +x deploy2wp/deploy2wp.sh && deploy2wps/deploy2wp.sh
    - SVN_USERNAME: username of wordpress.org
    - SVN_PASSWORD: password of wordpress.org
    - SVN_PLUGIN_URL: wordpress plugins url, etc <plugins.svn.wordpress.org/wp-resources-url-optimization> 
-
 
 **4. add deploy2wp to submodle**
 1. open command line tool

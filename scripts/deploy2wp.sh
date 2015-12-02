@@ -26,7 +26,7 @@ checkconfig
 
 # defined constant value
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-GIT_DIR="$DIR/.."
+GIT_DIR="$DIR/../.."
 TRUNK_DIR="$GIT_DIR/../../svntmp/trunk"
 SVN_AUTHORIZATION="--username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache"
 SVN="/usr/bin/svn"

@@ -16,7 +16,7 @@ language: php
 os:
 - linux
 
-script: chmod +x deploy2wp/deploy2wp.sh && deploy2wp/deploy2wp.sh
+script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.sh
 ~~~
 
 **2. activity travis-ci service**

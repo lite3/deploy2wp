@@ -61,14 +61,18 @@ move2svn() {
     cd -
 }
 
-# deply to tag
-deploywptag() {
-    echo "is tag $TRAVIS_BRANCH"
-    # copy tag to trunk
+deploywptrunk() {
+    echo "doing deploywptrunk"
     move2svn "$TRUNK_DIR"
     cd "$TRUNK_DIR"
     $SVN commit $SVN_AUTHORIZATION -m "auto deploy from deplywp" .
     cd -
+}
+
+# deply to tag
+deploywptag() {
+    echo "is tag $TRAVIS_BRANCH"
+    deploywptrunk
     $SVN copy $SVN_AUTHORIZATION $SVN_REPOSITORY_URL/trunk $SVN_REPOSITORY_URL/tags/$TRAVIS_BRANCH -m 'auto deploy by deplywp'
 }
 
@@ -79,7 +83,9 @@ deploywpassets() {
     $SVN commit $SVN_AUTHORIZATION -m "auto deploy from git" .
 }
 
-if [[ "$TRAVIS_BRANCH"x == 'assets' ]]; then
+if [[ "$TRAVIS_BRANCH"x == 'master' ]]; then
+    deploywptrunk
+elif [[ "$TRAVIS_BRANCH"x == 'assets' ]]; then
     deploywpassets
 elif [[ "$(branchtype $TRAVIS_BRANCH)"x == 'tag'x ]]; then
     deploywptag

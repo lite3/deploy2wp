@@ -39,5 +39,6 @@ script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.s
 
 1. open command line tool
 2. cd to your repository root dictionary
-3. execute `git submodule add https://github.com/lite3/deploy2wp.git`
-4. execute `git commit -m 'add submodule deploy2wp' && git push origin master`
+3. execute `git add .travis.yml`
+4. execute `git submodule add https://github.com/lite3/deploy2wp.git`
+5. execute `git commit -m 'add submodule deploy2wp' && git push origin master`

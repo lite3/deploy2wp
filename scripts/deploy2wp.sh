@@ -4,7 +4,7 @@ set -e
 
 echo "this is deply2wp"
 
-# check config for SVN_USERNAME, SVN_PASSWORD, SVN_PLUGIN_URL
+# check config for SVN_USERNAME, SVN_PASSWORD, SVN_REPOSITORY_URL
 checkconfig() {
     errmsg=""
     if [[ -z "$SVN_USERNAME"  ]]; then
@@ -13,8 +13,8 @@ checkconfig() {
     if [[ -z "$SVN_PASSWORD" ]]; then
         errmsg="${errmsg}\nplease set SVN_PASSWORD"
     fi
-    if [[ -z "$SVN_PLUGIN_URL" ]]; then
-        errmsg="${errmsg}\nplease set SVN_PLUGIN_URL"
+    if [[ -z "$SVN_REPOSITORY_URL" ]]; then
+        errmsg="${errmsg}\nplease set SVN_REPOSITORY_URL"
     fi
     if [[ -n "$errmsg" ]]; then
         echo "$errmsg"
@@ -30,7 +30,6 @@ GIT_DIR="$DIR/../.."
 TRUNK_DIR="$GIT_DIR/../../svntmp/trunk"
 SVN_AUTHORIZATION="--username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache"
 SVN="/usr/bin/svn"
-SVN_REPOSITORY_URL="$SVN_PLUGIN_URL"
 
 # checkout svn repository to svntmp
 $SVN checkout $SVN_REPOSITORY_URL "$TRUNK_DIR/.."

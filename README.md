@@ -30,10 +30,10 @@ script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.s
 
 1. access https://travis-ci.org/$own/$repository/settings,
    please change $own to your github user name and $repository to your repository name.
-2. add SVN_USERNAME, SVN_PASSWORD, SVN_PLUGIN_URL to Environment Variables
+2. add SVN_USERNAME, SVN_PASSWORD, SVN_REPOSITORY_URL to Environment Variables
    - SVN_USERNAME: username of wordpress.org
    - SVN_PASSWORD: password of wordpress.org
-   - SVN_PLUGIN_URL: wordpress plugins url, etc <plugins.svn.wordpress.org/wp-resources-url-optimization> 
+   - SVN_REPOSITORY_URL: wordpress plugins url, etc <plugins.svn.wordpress.org/wp-resources-url-optimization> 
 
 **4. add deploy2wp to submodle**
 

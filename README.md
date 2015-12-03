@@ -8,7 +8,10 @@ Github is so popular. Now, use this tool, you can write plugins or themes of wor
 How to use?
 -----------
 
-**1. add .yml file**
+**1. import your wordpress repository to Github**
+[GitHub Importer](https://import.github.com/new) will help you import your svn repository to Github
+
+**2. add .yml file**
 
 copy blow code in `.travis.yml` file, and put your github repository root dictionary.
 ~~~ yml
@@ -19,14 +22,14 @@ os:
 script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.sh
 ~~~
 
-**2. activity travis-ci service**
+**3. activity travis-ci service**
 
 1. sign up [Travis-ci](https://travis-ci.org/profile)
 2. access [Travis Profile](https://travis-ci.org/profile)
 3. click **Sync** button to synchronous your repositories
 3. find your repositories and activit it.
 
-**3. set Environment Variables**
+**4. set Environment Variables**
 
 1. access https://travis-ci.org/$own/$repository/settings,
    please change $own to your github user name and $repository to your repository name.
@@ -35,7 +38,7 @@ script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.s
    - SVN_PASSWORD: password of wordpress.org
    - SVN_REPOSITORY_URL: wordpress plugins url, etc <plugins.svn.wordpress.org/wp-resources-url-optimization> 
 
-**4. add deploy2wp to submodle**
+**5. add deploy2wp to submodle**
 
 1. open command line tool
 2. cd to your repository root dictionary

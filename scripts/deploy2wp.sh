@@ -55,6 +55,7 @@ move2svn() {
     cp -rf $GIT_DIR .
     rm -rf .git
     rm -rf .travis.yml
+    rm -rf .gitmodules
     rm -rf deploy2wp
     # must force add all files
     $SVN add --force .

@@ -83,9 +83,9 @@ deploywpassets() {
     $SVN commit $SVN_AUTHORIZATION -m "auto deploy from git" .
 }
 
-if [[ "$TRAVIS_BRANCH"x == 'master' ]]; then
+if [[ "$TRAVIS_BRANCH"x == 'master'x ]]; then
     deploywptrunk
-elif [[ "$TRAVIS_BRANCH"x == 'assets' ]]; then
+elif [[ "$TRAVIS_BRANCH"x == 'assets'x ]]; then
     deploywpassets
 elif [[ "$(branchtype $TRAVIS_BRANCH)"x == 'tag'x ]]; then
     deploywptag

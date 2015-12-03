@@ -9,7 +9,9 @@ How to use?
 -----------
 
 **1. import your wordpress repository to Github**
+
 [GitHub Importer](https://import.github.com/new) will help you import your svn repository to Github
+
 
 **2. add .yml file**
 
@@ -22,12 +24,14 @@ os:
 script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.sh
 ~~~
 
+
 **3. activity travis-ci service**
 
 1. sign up [Travis-ci](https://travis-ci.org/profile)
 2. access [Travis Profile](https://travis-ci.org/profile)
 3. click **Sync** button to synchronous your repositories
 3. find your repositories and activit it.
+
 
 **4. set Environment Variables**
 
@@ -37,6 +41,7 @@ script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.s
    - SVN_USERNAME: username of wordpress.org
    - SVN_PASSWORD: password of wordpress.org
    - SVN_URL: wordpress plugins url, etc <plugins.svn.wordpress.org/wp-resources-url-optimization> 
+
 
 **5. add deploy2wp to submodle**
 

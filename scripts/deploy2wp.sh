@@ -4,7 +4,7 @@ set -e
 
 echo "this is deply2wp"
 
-# check config for SVN_USERNAME, SVN_PASSWORD, SVN_REPOSITORY_URL
+# check config for SVN_USERNAME, SVN_PASSWORD, SVN_URL
 checkconfig() {
     errmsg=""
     if [[ -z "$SVN_USERNAME"  ]]; then
@@ -13,8 +13,8 @@ checkconfig() {
     if [[ -z "$SVN_PASSWORD" ]]; then
         errmsg="${errmsg}\nplease set SVN_PASSWORD"
     fi
-    if [[ -z "$SVN_REPOSITORY_URL" ]]; then
-        errmsg="${errmsg}\nplease set SVN_REPOSITORY_URL"
+    if [[ -z "$SVN_URL" ]]; then
+        errmsg="${errmsg}\nplease set SVN_URL"
     fi
     if [[ -n "$errmsg" ]]; then
         echo "$errmsg"
@@ -32,7 +32,7 @@ SVN_AUTHORIZATION="--username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-c
 SVN="/usr/bin/svn"
 
 # checkout svn repository to svntmp
-$SVN checkout $SVN_REPOSITORY_URL "$TRUNK_DIR/.."
+$SVN checkout $SVN_URL "$TRUNK_DIR/.."
 
 # print branch type: tag or branch
 branchtype() {
@@ -73,7 +73,7 @@ deploywptrunk() {
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
     deploywptrunk
-    $SVN copy $SVN_AUTHORIZATION $SVN_REPOSITORY_URL/trunk $SVN_REPOSITORY_URL/tags/$TRAVIS_BRANCH -m 'auto deploy by deplywp'
+    $SVN copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m 'auto deploy by deplywp'
 }
 
 # deploy to assets

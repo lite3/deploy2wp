@@ -2,7 +2,20 @@
 
 set -e
 
-echo "this is deply2wp"
+echo "this is deploy2wp:https://github.com/lite3/deploy2wp"
+
+COMMIT_MSG="auto deploy from deploy2wp:https://github.com/lite3/deploy2wp"
+
+# defined constant value
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+GIT_DIR="$DIR/../.."
+SVN_DIR="$GIT_DIR/../../svntmp"/trunk
+SVN_AUTHORIZATION="--username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache"
+SVN="/usr/bin/svn"
+
+IS_PLUGIN=0
+IS_THEME=0
+
 
 # check config for SVN_USERNAME, SVN_PASSWORD, SVN_URL
 checkconfig() {
@@ -22,17 +35,31 @@ checkconfig() {
     fi
 }
 
-checkconfig
+initWPType() {
+    # remove .svn.wordpress.org and follow char
+    wpType=${SVN_URL/.svn.wordpress.org*/}
+    # remove http://
+    wpType=${wpType/*\/}
+    if [[ "$wpType"x == 'plugins'x ]]; then
+        IS_PLUGIN=1
+    elif [[ "$wpType"x == 'themes'x ]]; then
+        IS_THEME=1
+    fi
+}
 
-# defined constant value
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-GIT_DIR="$DIR/../.."
-TRUNK_DIR="$GIT_DIR/../../svntmp/trunk"
-SVN_AUTHORIZATION="--username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache"
-SVN="/usr/bin/svn"
+# init environment constant
+initEnvironment() {
+    checkconfig
+    initWPType
+    
+}
+
+initEnvironment
+
+
 
 # checkout svn repository to svntmp
-$SVN checkout $SVN_URL "$TRUNK_DIR/.."
+$SVN checkout $SVN_URL $SVN_DIR
 
 # print branch type: tag or branch
 branchtype() {
@@ -63,24 +90,27 @@ move2svn() {
 
 deploywptrunk() {
     echo "doing deploywptrunk"
-    move2svn "$TRUNK_DIR"
-    cd "$TRUNK_DIR"
-    $SVN commit $SVN_AUTHORIZATION -m "auto deploy from deplywp" .
+    move2svn "$SVN_DIR/trunk"
+    cd "$SVN_DIR/trunk"
+    $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
     cd -
 }
 
 # deply to tag
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
-    deploywptrunk
-    $SVN copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m 'auto deploy by deplywp'
+    tagDir="$SVN_DIR/tags/$TRAVIS_BRANCH"
+    mkdir -p $tagDir
+    move2svn $tagDir
+    cd $tagDir
+    $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
 }
 
 # deploy to assets
 deploywpassets() {
     echo "this is deploywpassets"
-    cd "$TRUNK_DIR/../assets"
-    $SVN commit $SVN_AUTHORIZATION -m "auto deploy from git" .
+    cd "$SVN_DIR/assets"
+    $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
 }
 
 if [[ "$TRAVIS_BRANCH"x == 'assets'x ]]; then

@@ -109,6 +109,7 @@ deploywptag() {
 # deploy to assets
 deploywpassets() {
     echo "this is deploywpassets"
+    move2svn $SVN_DIR/assets
     cd "$SVN_DIR/assets"
     $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
 }

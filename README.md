@@ -40,7 +40,7 @@ script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.s
 2. add SVN_USERNAME, SVN_PASSWORD, SVN_URL to Environment Variables
    - SVN_USERNAME: username of wordpress.org
    - SVN_PASSWORD: password of wordpress.org
-   - SVN_URL: wordpress plugins url, etc <plugins.svn.wordpress.org/wp-resources-url-optimization> 
+   - SVN_URL: wordpress plugins url, etc <http://plugins.svn.wordpress.org/wp-resources-url-optimization> 
 
 
 **5. add deploy2wp to submodle**

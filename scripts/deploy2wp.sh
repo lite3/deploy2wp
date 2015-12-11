@@ -78,7 +78,7 @@ move2svn() {
     cd "$1"
     # delete all files
     $SVN delete ./*
-    cp -rf $GIT_DIR .
+    cp -rf $GIT_DIR/ .
     rm -rf .git
     rm -rf .travis.yml
     rm -rf .gitmodules

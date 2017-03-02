@@ -101,13 +101,8 @@ deploywptrunk() {
 # deply to tag
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
-    tagDir="$SVN_DIR/tags/$TRAVIS_BRANCH"
-    mkdir -p $tagDir
-    move2svn $tagDir
-    cd $tagDir
-    echo "deploywptag befor commit"
-    ls -lha .
-    $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
+    deploywptrunk
+    $SVN copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m '$COMMIT_MSG'
 }
 
 # deploy to assets

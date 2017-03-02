@@ -83,6 +83,8 @@ move2svn() {
     rm -rf .travis.yml
     rm -rf .gitmodules
     rm -rf deploy2wp
+    echo "move2svn $1"
+    ls -lha .
     # must force add all files
     $SVN add --force .
     cd -
@@ -103,6 +105,8 @@ deploywptag() {
     mkdir -p $tagDir
     move2svn $tagDir
     cd $tagDir
+    echo "deploywptag befor commit"
+    ls -lha .
     $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
 }
 

@@ -102,7 +102,7 @@ deploywptrunk() {
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
     deploywptrunk
-    $SVN copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m '$COMMIT_MSG'
+    $SVN copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m "$COMMIT_MSG"
 }
 
 # deploy to assets
@@ -113,10 +113,14 @@ deploywpassets() {
     $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
 }
 
-if [[ "$TRAVIS_BRANCH"x == 'assets'x ]]; then
+if [[ "$TRAVIS_BRANCH"x == "assets"x ]]; then
     deploywpassets
-elif [[ "$(branchtype $TRAVIS_BRANCH)"x == 'tag'x ]]; then
+elif [[ "$(branchtype $TRAVIS_BRANCH)"x == "tag"x ]]; then
     deploywptag
+elif [[ "$TRAVIS_BRANCH"x == "master"x ]]; then
+    if [[ -n "$DEPLOYMASTER" ]]; then
+        deploywptrunk
+    fi
 fi
 
 # check current branch is tag

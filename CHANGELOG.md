@@ -2,6 +2,12 @@
 
 This change log follows the [Keep a Changelog standards]. Versions follows [Semantic Versioning].
 
+## [1.1] - 2017-03-23
+
+* Remove submodule
+* Supports automatically deploy theme to WordPress.
+
+
 ## [1.0.0] - 2015-12-03
 
 * Initial release
@@ -10,3 +16,4 @@ This change log follows the [Keep a Changelog standards]. Versions follows [Sema
   [Keep a Changelog standards]: http://keepachangelog.com/
   [Semantic Versioning]: http://semver.org/
   [1.0.0]: https://github.com/lite3/deploy2wp/releases/tag/1.0.0
+  [1.1]: https://github.com/lite3/deploy2wp/releases/tag/1.1

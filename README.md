@@ -25,7 +25,7 @@ os:
 # env: DEPLOYMASTER=1
 
 before_script:
-  - git clone -b master https://github.com/lite3/deploy2wp.git 
+  - git clone -b 1.1 https://github.com/lite3/deploy2wp.git 
   - chmod -R +x deploy2wp/scripts
   - deploy2wp/scripts/wp2md.sh README.md readme.txt to-wp
 

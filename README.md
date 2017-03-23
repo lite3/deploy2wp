@@ -53,3 +53,11 @@ script:
    - SVN_URL: wordpress plugins url, etc http://plugins.svn.wordpress.org/wp-resources-url-optimization 
 
 
+How to remove old submodule?
+-----------
+
+~~~
+git submodule deinit deploy2wp
+git rm --cached deploy2wp
+rm -rf .git/modules/deploy2wp
+~~~

@@ -19,9 +19,19 @@ copy blow code in `.travis.yml` file, and put your github repository root dictio
 ~~~ yml
 language: php
 os:
-- linux
+  - linux
 
-script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.sh
+# deploy master to svn truck
+# env: DEPLOYMASTER=1
+
+before_script:
+  - git clone -b master https://github.com/lite3/deploy2wp.git 
+  - chmod -R +x deploy2wp/scripts
+  - deploy2wp/scripts/wp2md.sh README.md readme.txt to-wp
+
+script:
+  - deploy2wp/scripts/deploy2wp.sh
+  - cat readme.txt
 ~~~
 
 
@@ -43,10 +53,3 @@ script: chmod +x deploy2wp/scripts/deploy2wp.sh && deploy2wp/scripts/deploy2wp.s
    - SVN_URL: wordpress plugins url, etc http://plugins.svn.wordpress.org/wp-resources-url-optimization 
 
 
-**5. add deploy2wp to submodle**
-
-1. open command line tool
-2. cd to your repository root dictionary
-3. execute `git add .travis.yml`
-4. execute `git submodule add https://github.com/lite3/deploy2wp.git`
-5. execute `git commit -m 'add submodule deploy2wp' && git push origin master`

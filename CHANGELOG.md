@@ -6,6 +6,7 @@ This change log follows the [Keep a Changelog standards]. Versions follows [Sema
 
 * Remove submodule
 * Supports automatically deploy theme to WordPress.
+* Add wp2md.sh
 
 
 ## [1.0.0] - 2015-12-03

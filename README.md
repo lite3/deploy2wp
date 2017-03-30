@@ -25,13 +25,13 @@ os:
 # env: DEPLOYMASTER=1
 
 before_script:
-  - git clone -b 1.1 https://github.com/lite3/deploy2wp.git 
+  - git clone -b 1.1 https://github.com/litefeel/deploy2wp.git 
   - chmod -R +x deploy2wp/scripts
   - deploy2wp/scripts/wp2md.sh README.md readme.txt to-wp
+  - cat readme.txt
 
 script:
   - deploy2wp/scripts/deploy2wp.sh
-  - cat readme.txt
 ~~~
 
 
@@ -58,6 +58,7 @@ How to remove old submodule?
 
 ~~~
 git submodule deinit deploy2wp
+git rm deploy2wp
 git rm --cached deploy2wp
 rm -rf .git/modules/deploy2wp
 ~~~

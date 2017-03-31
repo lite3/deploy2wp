@@ -2,9 +2,9 @@
 
 set -e
 
-echo "this is deploy2wp:https://github.com/lite3/deploy2wp"
+echo "this is deploy2wp:https://github.com/litefeel/deploy2wp"
 
-COMMIT_MSG="auto deploy from deploy2wp:https://github.com/lite3/deploy2wp"
+COMMIT_MSG="auto deploy from deploy2wp:https://github.com/litefeel/deploy2wp"
 
 # defined constant value
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

@@ -2,6 +2,10 @@
 
 This change log follows the [Keep a Changelog standards]. Versions follows [Semantic Versioning].
 
+## [2.0] - 2017-08-07
+
+* Add install.sh to automatically switch to last tag
+
 ## [1.1] - 2017-03-23
 
 * Remove submodule
@@ -18,3 +22,4 @@ This change log follows the [Keep a Changelog standards]. Versions follows [Sema
   [Semantic Versioning]: http://semver.org/
   [1.0.0]: https://github.com/lite3/deploy2wp/releases/tag/1.0.0
   [1.1]: https://github.com/lite3/deploy2wp/releases/tag/1.1
+  [2.0]: https://github.com/lite3/deploy2wp/releases/tag/2.0

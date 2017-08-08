@@ -79,11 +79,14 @@ move2svn() {
     # delete all files
     echo "move2svn $1"
     ls -lha .
-    # remove all file of visible
-    rm -rf ./*
-    # remove all file of hide
-    rm -rf ./.* 2> /dev/null
-    $SVN delete ./*
+    # clean svn repo
+    echo -n "Cleaning local copy of SVN repo..."
+    for file in $(find . -type f -and -not -path "*.svn/*")
+    do
+        rm $file
+    done
+    find . -type d -and -not -path "*.svn/*" -empty -delete
+    echo "Done."
 
     # copy current plugin to svn dir
     echo -n "Copying git files to SVN repo..."
@@ -130,6 +133,8 @@ deploywptrunk() {
     echo "doing deploywptrunk"
     move2svn "$SVN_DIR/trunk"
     cd "$SVN_DIR/trunk"
+    echo "------ svn stat ---------"
+    $SVN stat
     $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
     cd -
 }

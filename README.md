@@ -24,14 +24,13 @@ os:
 # deploy master to svn truck
 # env: DEPLOYMASTER=1
 
-before_script:
-  - git clone https://github.com/litefeel/deploy2wp.git
-  - sh deploy2wp/scripts/install.sh
-  - deploy2wp/scripts/wp2md.sh README.md readme.txt to-wp
-  - cat readme.txt
-
 script:
-  - deploy2wp/scripts/deploy2wp.sh
+# - some other code
+- git clone https://github.com/litefeel/deploy2wp.git
+- sh deploy2wp/scripts/install.sh
+
+after_success:
+- deploy2wp/scripts/deploy2wp.sh
 ~~~
 
 

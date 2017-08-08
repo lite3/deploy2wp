@@ -7,9 +7,10 @@ echo "this is deploy2wp:https://github.com/litefeel/deploy2wp"
 COMMIT_MSG="auto deploy from deploy2wp:https://github.com/litefeel/deploy2wp"
 
 # defined constant value
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-GIT_DIR="$DIR/../.."
-SVN_DIR="$GIT_DIR/../../svntmp"/trunk
+TOOLS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+GIT_DIR=$( cd "$TOOLS_DIR/../.." && pwd)
+SLUG=$( basename "$GIT_DIR" )
+SVN_DIR="/tmp/$SLUG"
 SVN_AUTHORIZATION="--username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache"
 SVN="/usr/bin/svn"
 
@@ -56,8 +57,6 @@ initEnvironment() {
 
 initEnvironment
 
-
-
 # checkout svn repository to svntmp
 $SVN checkout $SVN_URL $SVN_DIR
 
@@ -75,19 +74,56 @@ branchtype() {
 # move current git branch to svn dir
 # @param dst
 move2svn() {
+    orgindir=$( pwd )
     cd "$1"
     # delete all files
     echo "move2svn $1"
     ls -lha .
+    # remove all file of visible
+    rm -rf ./*
+    # remove all file of hide
+    rm -rf ./.* 2> /dev/null
     $SVN delete ./*
-    cp -rf $GIT_DIR/ .
-    rm -rf .git
-    rm -rf .travis.yml
-    rm -rf .gitmodules
-    rm -rf deploy2wp
-    # must force add all files
-    $SVN add --force .
-    cd -
+
+    # copy current plugin to svn dir
+    echo -n "Copying git files to SVN repo..."
+    cd $GIT_DIR
+    git checkout-index --quiet --all --force --prefix=$1/
+    echo "Done."
+
+    cd "$1"
+
+    # install npm, bower, and composer dependencies
+    if [ -f composer.json ]; then
+        echo -n "Installing dependencies..."
+        composer install --quiet --no-dev --optimize-autoloader &>/dev/null
+        echo "Done."
+    fi
+
+    # transform the readme
+    if [ -f README.md ]; then
+        echo -n "Converting the README to WordPress format..."
+        $TOOLS_DIR/wp2md.sh README.md readme.txt to-wp
+        echo "Done."
+        echo 'Show readme.txt\n-----------------'
+        cat readme.txt
+    fi
+
+    # remove unneeded files via .svnignore
+    echo -n "Removing unwanted development files using .svnignore..."
+    for file in $(cat ".svnignore" 2> /dev/null)
+    do
+        rm -rf ./$file
+    done
+    echo "Done."
+
+    # svn addremove
+    echo "Adding new commit to SVN..."
+    $SVN stat | awk '/^\?/ {print $2}' | xargs $SVN add > /dev/null 2>&1
+    $SVN stat | awk '/^\M/ {print $2}' | xargs $SVN add > /dev/null 2>&1
+    $SVN stat | awk '/^\!/ {print $2}' | xargs $SVN rm --force  > /dev/null 2>&1
+
+    cd $orgindir
 }
 
 deploywptrunk() {

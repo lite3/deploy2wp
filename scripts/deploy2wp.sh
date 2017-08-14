@@ -124,9 +124,9 @@ move2svn() {
     $SVN stat
     # svn addremove
     echo "Adding new commit to SVN..."
-    $SVN stat | awk '/^\?/ {print $2}' | xargs $SVN add --force
-    $SVN stat | awk '/^\M/ {print $2}' | xargs $SVN add --force
-    $SVN stat | awk '/^\!/ {print $2}' | xargs $SVN rm --force
+    svn stat | awk '/^\?/ {system("svn add --force "$2)}'
+    svn stat | awk '/^\M/ {system("svn add --force "$2)}'
+    svn stat | awk '/^\!/ {system("svn add --force "$2)}'
 
     cd $orgindir
 }

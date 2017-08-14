@@ -120,6 +120,8 @@ move2svn() {
     done
     echo "Done."
 
+    echo "svn stat"
+    $SVN stat
     # svn addremove
     echo "Adding new commit to SVN..."
     $SVN stat | awk '/^\?/ {print $2}' | xargs $SVN add > /dev/null 2>&1

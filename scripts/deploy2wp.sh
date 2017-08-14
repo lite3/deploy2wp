@@ -12,7 +12,7 @@ GIT_DIR=$( cd "$TOOLS_DIR/../.." && pwd)
 SLUG=$( basename "$GIT_DIR" )
 SVN_DIR="/tmp/$SLUG"
 SVN_AUTHORIZATION="--username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache"
-SVN="/usr/bin/svn"
+
 
 IS_PLUGIN=0
 IS_THEME=0
@@ -58,7 +58,7 @@ initEnvironment() {
 initEnvironment
 
 # checkout svn repository to svntmp
-$SVN checkout $SVN_URL $SVN_DIR
+svn checkout $SVN_URL $SVN_DIR
 
 # print branch type: tag or branch
 branchtype() {
@@ -121,7 +121,7 @@ move2svn() {
     echo "Done."
 
     echo "svn stat"
-    $SVN stat
+    svn stat
     # svn addremove
     echo "Adding new commit to SVN..."
     svn stat | awk '/^\?/ {system("svn add --force "$2)}'
@@ -136,8 +136,8 @@ deploywptrunk() {
     move2svn "$SVN_DIR/trunk"
     cd "$SVN_DIR/trunk"
     echo "------ svn stat ---------"
-    $SVN stat
-    $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
+    svn stat
+    svn commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
     cd -
 }
 
@@ -145,7 +145,7 @@ deploywptrunk() {
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
     deploywptrunk
-    $SVN copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m "$COMMIT_MSG"
+    svn copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m "$COMMIT_MSG"
 }
 
 # deploy to assets
@@ -153,7 +153,7 @@ deploywpassets() {
     echo "this is deploywpassets"
     move2svn $SVN_DIR/assets
     cd "$SVN_DIR/assets"
-    $SVN commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
+    svn commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
 }
 
 if [[ "$TRAVIS_BRANCH"x == "assets"x ]]; then

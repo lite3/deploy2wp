@@ -101,6 +101,9 @@ markdowntowp () {
 
 	ss_mdtowp $1 $2
 
+	# remove badge icon
+	_sed "/^\[!\[/d" $2
+
 	PLUGINMETA=("Contributors" "Donate link" "Donate Link" "Tags" "Requires at least" "Tested up to" "Stable tag" "License" "License URI" "Requires base plugin" "Requires base plugin version")
 	for m in "${PLUGINMETA[@]}"
 	do

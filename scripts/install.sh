@@ -12,7 +12,7 @@ cd $DIR
 
 dev="$1"
 
-if [[ -z $dev ]]; then
+if [[ -z "$dev" ]]; then
     # Get new tags from the remote
     git fetch --tags
 

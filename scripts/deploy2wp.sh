@@ -144,6 +144,10 @@ deploywptrunk() {
 # deply to tag
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
+    if [[ -d tags/$TRAVIS_BRANCH ]]; then
+        echo "Path 'tags/$TRAVIS_BRANCH' already exists"
+        exit 1
+    fi
     deploywptrunk
     svn copy $SVN_AUTHORIZATION $SVN_URL/trunk $SVN_URL/tags/$TRAVIS_BRANCH -m "$COMMIT_MSG"
 }

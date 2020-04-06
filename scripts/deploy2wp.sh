@@ -19,12 +19,6 @@ IS_THEME=0
 
 
 
-initEnvironment
-
-# checkout svn repository to svntmp
-svn checkout $SVN_URL $SVN_DIR
-
-
 # check config for SVN_USERNAME, SVN_PASSWORD, SVN_URL
 checkconfig() {
     errmsg=""
@@ -162,6 +156,13 @@ deploywpassets() {
     cd "$SVN_DIR/assets"
     svn commit $SVN_AUTHORIZATION -m "$COMMIT_MSG" .
 }
+
+
+initEnvironment
+
+# checkout svn repository to svntmp
+svn checkout $SVN_URL $SVN_DIR
+
 
 if [[ "$TRAVIS_BRANCH"x == "assets"x ]]; then
     deploywpassets

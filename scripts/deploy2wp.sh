@@ -144,6 +144,8 @@ deploywptrunk() {
 # deply to tag
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
+    pwd
+    echo "check tag: tags/$TRAVIS_BRANCH"
     if [[ -d tags/$TRAVIS_BRANCH ]]; then
         echo "Path 'tags/$TRAVIS_BRANCH' already exists"
         exit 1

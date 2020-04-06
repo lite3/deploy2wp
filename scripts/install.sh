@@ -18,8 +18,11 @@ if [[ -z "$dev" ]]; then
 
     # Get the latest tag name
     latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-     
+
+    echo "lastest tag: $latestTag"
+
     # Checkout the latest tag
+    echo "git checkout $latestTag"
     git checkout $latestTag
 
 fi

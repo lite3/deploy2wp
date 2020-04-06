@@ -18,6 +18,13 @@ IS_PLUGIN=0
 IS_THEME=0
 
 
+
+initEnvironment
+
+# checkout svn repository to svntmp
+svn checkout $SVN_URL $SVN_DIR
+
+
 # check config for SVN_USERNAME, SVN_PASSWORD, SVN_URL
 checkconfig() {
     errmsg=""
@@ -54,11 +61,6 @@ initEnvironment() {
     initWPType
     
 }
-
-initEnvironment
-
-# checkout svn repository to svntmp
-svn checkout $SVN_URL $SVN_DIR
 
 # print branch type: tag or branch
 branchtype() {
@@ -144,10 +146,9 @@ deploywptrunk() {
 # deply to tag
 deploywptag() {
     echo "is tag $TRAVIS_BRANCH"
-    pwd
-    echo "check tag: tags/$TRAVIS_BRANCH"
-    if [[ -d tags/$TRAVIS_BRANCH ]]; then
-        echo "Path 'tags/$TRAVIS_BRANCH' already exists"
+    echo "check tag: $SVN_DIR/tags/$TRAVIS_BRANCH"
+    if [[ -d $SVN_DIR/tags/$TRAVIS_BRANCH ]]; then
+        echo "Path '$SVN_DIR/tags/$TRAVIS_BRANCH' already exists"
         exit 1
     fi
     deploywptrunk
